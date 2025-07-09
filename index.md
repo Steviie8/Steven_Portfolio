@@ -26,6 +26,8 @@ For your final milestone, explain the outcome of your project. Key details to in
 - What your biggest challenges and triumphs were at BSE
 - A summary of key topics you learned about
 - What you hope to learn in the future after everything you've learned at BSE
+# Final Milestone Code
+Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
 
 
@@ -39,7 +41,10 @@ For your second milestone, explain what you've worked on since your previous mil
 - Technical details of what you've accomplished and how they contribute to the final goal
 - What has been surprising about the project so far
 - Previous challenges you faced that you overcame
-- What needs to be completed before your final milestone 
+- What needs to be completed before your final milestone
+  
+# Second Milestone Code
+Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
 # First Milestone
 
@@ -53,24 +58,124 @@ For your first milestone, describe what your project is and how you plan to buil
 - I've faced many challenges because this wasn't my original plan with the Matrix Portal M4; the original plan was to make a flow visualizer, but due to nasty code that crashed the microcontroller, I had to change the project. Even after 6 hours of trying to debugging, the instructors and I could't figure out the problem to the issue. This led me to do the Time clock.
 - I could add Animations to the screen that would make the screen smoother and allow it to transition between screens. I also want to add more information from the internet to the screen, like the weather or the stock market. If I still have time, I would also like to add the score of my games on the screen.
 
-# Schematics 
-Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad because it can be done easily and for free in the browser. 
+# First Milestone Code
+My code
+```python 
+# SPDX-FileCopyrightText: 2020 John Park for Adafruit Industries
+#
+# SPDX-License-Identifier: MIT
 
-# Code
-Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
+# Metro Matrix Clock
+# Runs on Airlift Metro M4 with 64x32 RGB Matrix display & shield
 
-```c++
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
-}
+from os import getenv
+import time
+import board
+import displayio
+import terminalio
+from adafruit_display_text.label import Label
+from adafruit_bitmap_font import bitmap_font
+from adafruit_matrixportal.network import Network
+from adafruit_matrixportal.matrix import Matrix
 
-void loop() {
-  // put your main code here, to run repeatedly:
+BLINK = True
+DEBUG = False
 
-}
+# Get WiFi details, ensure these are setup in settings.toml
+ssid = getenv("CIRCUITPY_WIFI_SSID")
+password = getenv("CIRCUITPY_WIFI_PASSWORD")
+
+if None in [ssid, password]:
+    raise RuntimeError(
+        "WiFi settings are kept in settings.toml, "
+        "please add them there. The settings file must contain "
+        "'CIRCUITPY_WIFI_SSID', 'CIRCUITPY_WIFI_PASSWORD', "
+        "at a minimum."
+    )
+
+print("    Metro Minimal Clock")
+print("Time will be set for {}".format(getenv("timezone")))
+
+# --- Display setup ---
+matrix = Matrix()
+display = matrix.display
+network = Network(status_neopixel=board.NEOPIXEL, debug=False)
+
+# --- Drawing setup ---
+group = displayio.Group()  # Create a Group
+bitmap = displayio.Bitmap(64, 32, 2)  # Create a bitmap object,width, height, bit depth
+color = displayio.Palette(4)  # Create a color palette
+color[0] = 0x000000  # black background
+color[1] = 0xFF0000  # red
+color[2] = 0xCC4000  # amber
+color[3] = 0x85FF00  # greenish
+
+# Create a TileGrid using the Bitmap and Palette
+tile_grid = displayio.TileGrid(bitmap, pixel_shader=color)
+group.append(tile_grid)  # Add the TileGrid to the Group
+display.root_group = group
+
+if not DEBUG:
+    font = bitmap_font.load_font("/IBMPlexMono-Medium-24_jep.bdf")
+else:
+    font = terminalio.FONT
+
+clock_label = Label(font)
+
+
+def update_time(*, hours=None, minutes=None, show_colon=False):
+    now = time.localtime()  # Get the time values we need
+    if hours is None:
+        hours = now[3]
+    if hours >= 18 or hours < 6:  # evening hours to morning
+        clock_label.color = color[1]
+    else:
+        clock_label.color = color[3]  # daylight hours
+    if hours > 12:  # Handle times later than 12:59
+        hours -= 12
+    elif not hours:  # Handle times between 0:00 and 0:59
+        hours = 12
+
+    if minutes is None:
+        minutes = now[4]
+
+    if BLINK:
+        colon = ":" if show_colon or now[5] % 2 else " "
+    else:
+        colon = ":"
+
+    clock_label.text = "{hours}{colon}{minutes:02d}".format(
+        hours=hours, minutes=minutes, colon=colon
+    )
+    bbx, bby, bbwidth, bbh = clock_label.bounding_box
+    # Center the label
+    clock_label.x = round(display.width / 2 - bbwidth / 2)
+    clock_label.y = display.height // 2
+    if DEBUG:
+        print("Label bounding box: {},{},{},{}".format(bbx, bby, bbwidth, bbh))
+        print("Label x: {} y: {}".format(clock_label.x, clock_label.y))
+
+
+last_check = None
+update_time(show_colon=True)  # Display whatever time is on the board
+group.append(clock_label)  # add the clock label to the group
+
+while True:
+    if last_check is None or time.monotonic() > last_check + 3600:
+        try:
+            update_time(
+                show_colon=True
+            )  # Make sure a colon is displayed while updating
+            network.get_local_time()  # Synchronize Board's clock to Internet
+            last_check = time.monotonic()
+        except RuntimeError as e:
+            print("Some error occured, retrying! -", e)
+
+    update_time()
+    time.sleep(1)
+
 ```
+
 
 # Bill of Materials
 Here's where you'll list the parts in your project. To add more rows, just copy and paste the example rows below.
