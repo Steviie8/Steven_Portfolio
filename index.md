@@ -44,7 +44,143 @@ For your second milestone, explain what you've worked on since your previous mil
 - I need to make a network that would allow me to communicate between the screen and other devices, so I can get readings from another microcontroller and be able to display them on my screen.
   
 # Second Milestone Code
-Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
+My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
+Main Code
+```python 
+import board
+import digitalio
+import time
+import displayio
+import terminalio
+from os import getenv
+from adafruit_display_text.label import Label
+from adafruit_bitmap_font import bitmap_font
+from adafruit_matrixportal.network import Network
+from adafruit_matrixportal.matrix import Matrix
+from time_1 import run 
+from Flow import loop, setup, cleanup
+import val_test
+import gc
+
+ssid = getenv("CIRCUITPY_WIFI_SSID")
+password = getenv("CIRCUITPY_WIFI_PASSWORD")
+if None in [ssid, password]:
+    raise RuntimeError("Missing WiFi credentials in settings.toml")
+
+matrix = Matrix()
+display = matrix.display
+font_4x6 = bitmap_font.load_font("Roboto-Regular-6pt.bdf")
+valorant_group = val_test.setup_valorant_display(display, font=font_4x6)
+try:
+    val_test._connection_status = "Connecting..."
+except AttributeError:
+    print("Warning: _connection_status not found in val_test.py. Ensure it's accessible or use a setter.")
+
+display.root_group = valorant_group
+display.refresh()
+
+network = Network(status_neopixel=board.NEOPIXEL, debug=False)
+try:
+    network.connect()
+    print("Connected to Wi-Fi")
+    try:
+        val_test._connection_status = "Connected"
+    except AttributeError:
+        pass
+except Exception as e:
+    print(f"Wi-Fi Error: {e}")
+    try:
+        val_test._connection_status = "Wi-Fi Error"
+    except AttributeError:
+        pass
+
+clock_group = displayio.Group()
+clock_bitmap = displayio.Bitmap(64, 32, 2)
+clock_palette = displayio.Palette(4)
+clock_palette[0] = 0x000000
+clock_palette[1] = 0xFF0000
+clock_palette[2] = 0xCC4000
+clock_palette[3] = 0x85FF00
+clock_tile_grid = displayio.TileGrid(clock_bitmap, pixel_shader=clock_palette)
+clock_group.append(clock_tile_grid)
+clock_font = bitmap_font.load_font("/IBMPlexMono-Medium-24_jep.bdf")
+clock_label = Label(clock_font)
+clock_group.append(clock_label)
+
+def update_time(*, hours=None, minutes=None, show_colon=False):
+    now = time.localtime()
+    if hours is None:
+        hours = now[3]
+    if hours >= 18 or hours < 6:
+        clock_label.color = clock_palette[1]
+    else:
+        clock_label.color = clock_palette[3]
+    if hours > 12:
+        hours -= 12
+    elif not hours:
+        hours = 12
+    if minutes is None:
+        minutes = now[4]
+    colon = ":" if show_colon or now[5] % 2 else " "
+    clock_label.text = f"{hours}{colon}{minutes:02d}"
+    bbx, bby, bbwidth, bbh = clock_label.bounding_box
+    clock_label.x = round(display.width / 2 - bbwidth / 2)
+    clock_label.y = display.height // 2
+
+button_up = digitalio.DigitalInOut(board.BUTTON_UP)
+button_up.direction = digitalio.Direction.INPUT
+button_up.pull = digitalio.Pull.UP
+button_down = digitalio.DigitalInOut(board.BUTTON_DOWN)
+button_down.direction = digitalio.Direction.INPUT
+button_down.pull = digitalio.Pull.UP
+
+mode = 1
+last_check = None
+last_up = True
+last_down = True
+last_mode = -1
+
+while True:
+    if mode != last_mode:
+        print(f"Switching from Mode {last_mode} to Mode {mode}")
+        if last_mode == 1:
+            pass
+        elif last_mode == 2:
+            cleanup()
+            print("Cleaned up Flow Mode.")
+        elif last_mode == 3:
+            print("Valorant Mode has no dedicated cleanup function (objects are persistent).")
+        if mode == 1:
+            display.root_group = clock_group
+            print("Switched to Clock Mode")
+        elif mode == 2:
+            display.root_group = setup(display)
+            print("Switched to Flow Mode")
+        elif mode == 3:
+            display.root_group = valorant_group
+            print("Switched to Valorant Mode")
+        gc.collect()
+    if mode == 1:
+        last_check = run(update_time, network, last_check)
+        gc.collect
+    elif mode == 2:
+        loop()
+        gc.collect
+    elif mode == 3:
+        val_test.get_info(network)
+    last_mode = mode
+    current_up = button_up.value
+    current_down = button_down.value
+    if not current_up and last_up and mode < 3:
+        mode +=1
+        print("Up button pressed")
+    if not current_down and last_down and mode > 0:
+        mode -= 1
+        print("Down button pressed")
+    last_up = current_up
+    last_down = current_down
+    time.sleep(0.05)
+```
 
 # First Milestone
 
