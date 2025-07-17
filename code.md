@@ -3,7 +3,131 @@ layout: "page"
 title: Code
 permalink: /code/
 ---
+/* Basic Body/Page Styles */
+body {
+    font-family: Arial, sans-serif; /* Choose a clean font */
+    line-height: 1.6; /* Improve readability */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333; /* Dark grey text */
+}
 
+/* Container for content - helps center and limit width */
+.container {
+    max-width: 960px; /* Max width for content */
+    margin: 20px auto; /* Center the container with some top/bottom margin */
+    padding: 20px;
+    background-color: #fff; /* White background for content area */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow */
+    border-radius: 8px; /* Slightly rounded corners */
+}
+
+/* Header & Navigation Styles */
+header {
+    background-color: #333; /* Dark background for header */
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Make nav items horizontal */
+    justify-content: center; /* Center nav items */
+}
+
+nav ul li {
+    margin: 0 15px; /* Spacing between nav items */
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none; /* Remove underline from links */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+nav a:hover {
+    color: #ddd; /* Lighter color on hover */
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #2c3e50; /* Darker color for headings */
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 1em;
+}
+
+/* Links */
+a {
+    color: #3498db; /* A blue color for links */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Code Block Styling (Crucial for code.md) */
+pre {
+    background-color: #282c34; /* Dark background for code blocks */
+    color: #abb2bf; /* Light text color for code */
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+    font-family: 'Courier New', monospace; /* Monospaced font for code */
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* For inline code (if you use `some code`) */
+code {
+    background-color: #e0e0e0;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+/* Table Styling (for your engineer table) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1em 0;
+    margin-top: 2em;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 0.8em;
+}
 ## My code
 # Second Milestone Code
 My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
