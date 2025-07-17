@@ -1,10 +1,11 @@
 ---
 layout: defult
 title: Code
-permalink: /code/
 ---
 
 }
+[Back to Home](index.md)
+
 ## My code
 # Second Milestone Code
 My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
