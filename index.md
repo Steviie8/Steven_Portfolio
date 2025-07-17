@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <li><a href="{{ site.baseurl }}/">Home</a></li>
-        </ul>
+        <li><a href="{{ site.baseurl }}/about/">About Me</a></li> <li><a href="{{ site.baseurl }}/code/">Code</a></li> </ul>
 </nav>
 # Matrix Portal Flow Visualizer
 
