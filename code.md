@@ -1,8 +1,8 @@
 ---
-layout: "page"
+layout: "main"
 title: Code
 permalink: /code/
-theme: jekyll-theme-minimal 
+
 ---
 /* Basic Body/Page Styles */
 body {
