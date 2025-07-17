@@ -1,3 +1,10 @@
+---
+layout: page
+title: Main
+permalink: /about/
+---
+
+
 <nav>
     <ul>
         <li><a href="{{ site.baseurl }}/">Home</a></li>
