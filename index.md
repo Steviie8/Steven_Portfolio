@@ -1,13 +1,11 @@
 ---
 layout: default
 title: Main
-permalink: /main/
 ---
 
 
 <nav>
     <ul>
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
         <li><a href="{{ site.baseurl }}/code/">Code</a></li> </ul>
 </nav>
 # Matrix Portal Flow Visualizer
