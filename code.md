@@ -1,9 +1,8 @@
 ---
-layout: defult
+layout: default
 title: Code
 ---
 
-}
 [Back to Home](index.md)
 
 ## My code
