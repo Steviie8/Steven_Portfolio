@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: "page"
 title: Code
+permalink: /code/
 ---
 
 ## My code
