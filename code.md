@@ -1,5 +1,5 @@
 ---
-layout: "main"
+layout: defult
 title: Code
 permalink: /code/
 ---
