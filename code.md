@@ -3,7 +3,7 @@ layout: default
 title: Code
 ---
 
-[Back to Home](index.md)| [First Milestone Code](# First Milestone Code)| [Second Milestone Code](# Second Milestone Code)|
+[Back to Home](index.md)| [First Milestone Code](#First_Milestone_Code)| [Second Milestone Code](#Second_Milestone_Code)|
 
 ## My code
 # Third Milestone Code
@@ -850,7 +850,7 @@ void loop() {
   delay(60000);  // send every 60 seconds
 }
 ```
-# Second Milestone Code
+# Second_Milestone_Code
 My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
 
 Main.py
@@ -1367,7 +1367,7 @@ def loop():
 ```
 
 
-# First Milestone Code
+# First_Milestone_Code
 My code
 ```python 
 # SPDX-FileCopyrightText: 2020 John Park for Adafruit Industries
