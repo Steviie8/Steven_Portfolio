@@ -18,7 +18,6 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
   
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -58,122 +57,7 @@ For your first milestone, describe what your project is and how you plan to buil
 
 # First Milestone Code
 My code
-```python 
-# SPDX-FileCopyrightText: 2020 John Park for Adafruit Industries
-#
-# SPDX-License-Identifier: MIT
-
-# Metro Matrix Clock
-# Runs on Airlift Metro M4 with 64x32 RGB Matrix display & shield
-
-from os import getenv
-import time
-import board
-import displayio
-import terminalio
-from adafruit_display_text.label import Label
-from adafruit_bitmap_font import bitmap_font
-from adafruit_matrixportal.network import Network
-from adafruit_matrixportal.matrix import Matrix
-
-BLINK = True
-DEBUG = False
-
-# Get WiFi details, ensure these are setup in settings.toml
-ssid = getenv("CIRCUITPY_WIFI_SSID")
-password = getenv("CIRCUITPY_WIFI_PASSWORD")
-
-if None in [ssid, password]:
-    raise RuntimeError(
-        "WiFi settings are kept in settings.toml, "
-        "please add them there. The settings file must contain "
-        "'CIRCUITPY_WIFI_SSID', 'CIRCUITPY_WIFI_PASSWORD', "
-        "at a minimum."
-    )
-
-print("    Metro Minimal Clock")
-print("Time will be set for {}".format(getenv("timezone")))
-
-# --- Display setup ---
-matrix = Matrix()
-display = matrix.display
-network = Network(status_neopixel=board.NEOPIXEL, debug=False)
-
-# --- Drawing setup ---
-group = displayio.Group()  # Create a Group
-bitmap = displayio.Bitmap(64, 32, 2)  # Create a bitmap object,width, height, bit depth
-color = displayio.Palette(4)  # Create a color palette
-color[0] = 0x000000  # black background
-color[1] = 0xFF0000  # red
-color[2] = 0xCC4000  # amber
-color[3] = 0x85FF00  # greenish
-
-# Create a TileGrid using the Bitmap and Palette
-tile_grid = displayio.TileGrid(bitmap, pixel_shader=color)
-group.append(tile_grid)  # Add the TileGrid to the Group
-display.root_group = group
-
-if not DEBUG:
-    font = bitmap_font.load_font("/IBMPlexMono-Medium-24_jep.bdf")
-else:
-    font = terminalio.FONT
-
-clock_label = Label(font)
-
-
-def update_time(*, hours=None, minutes=None, show_colon=False):
-    now = time.localtime()  # Get the time values we need
-    if hours is None:
-        hours = now[3]
-    if hours >= 18 or hours < 6:  # evening hours to morning
-        clock_label.color = color[1]
-    else:
-        clock_label.color = color[3]  # daylight hours
-    if hours > 12:  # Handle times later than 12:59
-        hours -= 12
-    elif not hours:  # Handle times between 0:00 and 0:59
-        hours = 12
-
-    if minutes is None:
-        minutes = now[4]
-
-    if BLINK:
-        colon = ":" if show_colon or now[5] % 2 else " "
-    else:
-        colon = ":"
-
-    clock_label.text = "{hours}{colon}{minutes:02d}".format(
-        hours=hours, minutes=minutes, colon=colon
-    )
-    bbx, bby, bbwidth, bbh = clock_label.bounding_box
-    # Center the label
-    clock_label.x = round(display.width / 2 - bbwidth / 2)
-    clock_label.y = display.height // 2
-    if DEBUG:
-        print("Label bounding box: {},{},{},{}".format(bbx, bby, bbwidth, bbh))
-        print("Label x: {} y: {}".format(clock_label.x, clock_label.y))
-
-
-last_check = None
-update_time(show_colon=True)  # Display whatever time is on the board
-group.append(clock_label)  # add the clock label to the group
-
-while True:
-    if last_check is None or time.monotonic() > last_check + 3600:
-        try:
-            update_time(
-                show_colon=True
-            )  # Make sure a colon is displayed while updating
-            network.get_local_time()  # Synchronize Board's clock to Internet
-            last_check = time.monotonic()
-        except RuntimeError as e:
-            print("Some error occured, retrying! -", e)
-
-    update_time()
-    time.sleep(1)
-
-```
-
+[Code](code.md)
 
 # Bill of Materials
 
@@ -183,11 +67,11 @@ while True:
 | USB type A to type C cable | Connecting the Matrix Portal M4 to your computer | $3.95 | <a href="https://www.adafruit.com/product/4473"> Link </a> |
 | Wire Stand | Use the stand to hold the screen in place | $4.95 | <a href="https://www.adafruit.com/product/1679"> Link </a> |
 | Screwdriver | Used to put the screws into the M4 chip | $1.50 | <a href="https://www.adafruit.com/product/3284"> Link </a> |
+| Mini Speaker | Used to add sound to the screen (I have the wrong wire right now) | $1.95 | <a href="https://www.adafruit.com/product/3923"> Link </a> |
+| Precision Temp & Humidity Sensor | Used to send information to the esp32(I think its bricked) | $58.95 | <a href="https://www.adafruit.com/product/4867"> Link </a> |
+| ESP32 board with STEMMA QT / Qwiic connector | Used to send data to the MatrixPortal using the internet| $1.50 | <a href="https://www.adafruit.com/product/5405"> Link </a> |
+| Matrix portal S3 | Used replace the M4 chip to a stronger processor and more ram and data | $19.95 | <a href="https://www.adafruit.com/product/5778"> Link </a> |
+| MAX98357 I2S Class-D Mono Amp | used as a driver for the speaker(wrong wire right now)  | $4.50 | <a href="[https://www.adafruit.com/product/3284](https://www.digikey.com/en/products/detail/adafruit-industries-llc/5647/21283812?gad_source=1&gad_campaignid=20243136172&gbraid=0AAAAADrbLlh-6T16Vrium77g_FMBakpQ4&gclid=Cj0KCQjwhO3DBhDkARIsANxrhTorzYELKxenF74fJfHs2Vwa49Nm6J4P5HvHJOYHqi74qSeeiFK8sD4aAuftEALw_wcB&gclsrc=aw.ds)"> Link </a> |
+| Qwiic to Qwiic Cables  | Used to connect the sensor to esp32(sensor is not working)| $1.50 | <a href="[https://www.adafruit.com/product/3284](https://a.co/d/j1Xf3cD)"> Link </a> |
 
-# Other Resources/Examples
-One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
-- [Example 1](https://trashytuber.github.io/YimingJiaBlueStamp/)
-- [Example 2](https://sviatil0.github.io/Sviatoslav_BSE/)
-- [Example 3](https://arneshkumar.github.io/arneshbluestamp/)
 
-To watch the BSE tutorial on how to create a portfolio, click here.
