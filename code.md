@@ -799,6 +799,51 @@ def cleanup():
         _text_label.text = "" # Clear the text
 
 ```
+Esp32-s3 Main file
+This file connects to the internet using its onboard ESP32 chip, and with that it sends data to the ThingSpeak server using the API, and then the MatrixPortal S3 receives it and displays it.
+```c++ 
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "ssid"; # put ssid
+const char* password = "password"; #put password
+
+// You will update 'field1' value dynamically in the URL
+const char* apiKey = "apiket"; # put your api key
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected");
+}
+
+void loop() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+
+    // Prepare the URL with a value, for example "Hello from ESP32!" won't work as numeric, so send a number
+    String url = "https://api.thingspeak.com/update?api_key=";
+    url += apiKey;
+    url += "&field1=42";  // Example: sending numeric value 42
+
+    http.begin(url);  // Initialize HTTP GET request
+    int httpResponseCode = http.GET();  // Perform HTTP GET
+
+    if (httpResponseCode > 0) {
+      String response = http.getString();
+      Serial.println("Response: " + response);
+    } else {
+      Serial.printf("Error sending GET: %d\n", httpResponseCode);
+    }
+    http.end();
+  }
+  delay(60000);  // send every 60 seconds
+}
+```
 # Second Milestone Code
 My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
 
