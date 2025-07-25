@@ -852,6 +852,9 @@ void loop() {
 }
 ```
 # Second Milestone Code
+
+[Back to top](code.md)
+
 My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
 
 Main.py
@@ -1369,6 +1372,9 @@ def loop():
 
 
 # First Milestone Code
+
+[Back to top](code.md)
+
 My code
 ```python 
 # SPDX-FileCopyrightText: 2020 John Park for Adafruit Industries
