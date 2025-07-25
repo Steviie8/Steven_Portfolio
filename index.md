@@ -19,7 +19,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 
 ```HTML **Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**```
 
-![Headstone Image](logo.svg)
+![Headstone Image](WIN_20250725_09_42_36_Pro.jpg)
   
 # Final Milestone
 
@@ -28,18 +28,16 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
+- In this third milestone, I have added a connection between the Matrix Portal M4 and an ESP-32 that was supposed to display data from a sensor to the screen, but due to a broken sensor, I couldn't fully display what the sensor was reading to the screen. 
+- Some of the biggest challenges that I have faced are that much of the code took very long to debug, and some of them weren't the code's problem, like my sensor, which was faulty instead.
+- I've learned a lot, like how to use an API and how they can integrate into code. I also learned that sometimes when solving problems, you should take it from a different angle, and sometimes you need to switch to another thing before you realize what the problem might be. 
+-Something that I hope to learn in the future is the ability to integrate sensors and use the internet to integrate all these functions and be able to make a smart environment, so human tasks could be easier. This would allow people with disabilities to be able to access more functionality in their life. 
 # Final Milestone Code
 Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
 
 
 # Second Milestone
-
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QSbWj-pGbiI?si=XmT6LRNO0g3uPgXG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -50,145 +48,10 @@ For your second milestone, explain what you've worked on since your previous mil
 - I need to make a network that would allow me to communicate between the screen and other devices, so I can get readings from another microcontroller and be able to display them on my screen.
   
 # Second Milestone Code
-My code for the second milestone utilizes multiple Python files, along with the main file, which calls on the other files to run. This allows me to display multiple objects on the screen.
+[Code](code.md/# Second Milestone Code) 
 
-Main Code
 
-```python 
-import board
-import digitalio
-import time
-import displayio
-import terminalio
-from os import getenv
-from adafruit_display_text.label import Label
-from adafruit_bitmap_font import bitmap_font
-from adafruit_matrixportal.network import Network
-from adafruit_matrixportal.matrix import Matrix
-from time_1 import run 
-from Flow import loop, setup, cleanup
-import val_test
-import gc
 
-ssid = getenv("CIRCUITPY_WIFI_SSID")
-password = getenv("CIRCUITPY_WIFI_PASSWORD")
-if None in [ssid, password]:
-    raise RuntimeError("Missing WiFi credentials in settings.toml")
-
-matrix = Matrix()
-display = matrix.display
-font_4x6 = bitmap_font.load_font("Roboto-Regular-6pt.bdf")
-valorant_group = val_test.setup_valorant_display(display, font=font_4x6)
-try:
-    val_test._connection_status = "Connecting..."
-except AttributeError:
-    print("Warning: _connection_status not found in val_test.py. Ensure it's accessible or use a setter.")
-
-display.root_group = valorant_group
-display.refresh()
-
-network = Network(status_neopixel=board.NEOPIXEL, debug=False)
-try:
-    network.connect()
-    print("Connected to Wi-Fi")
-    try:
-        val_test._connection_status = "Connected"
-    except AttributeError:
-        pass
-except Exception as e:
-    print(f"Wi-Fi Error: {e}")
-    try:
-        val_test._connection_status = "Wi-Fi Error"
-    except AttributeError:
-        pass
-
-clock_group = displayio.Group()
-clock_bitmap = displayio.Bitmap(64, 32, 2)
-clock_palette = displayio.Palette(4)
-clock_palette[0] = 0x000000
-clock_palette[1] = 0xFF0000
-clock_palette[2] = 0xCC4000
-clock_palette[3] = 0x85FF00
-clock_tile_grid = displayio.TileGrid(clock_bitmap, pixel_shader=clock_palette)
-clock_group.append(clock_tile_grid)
-clock_font = bitmap_font.load_font("/IBMPlexMono-Medium-24_jep.bdf")
-clock_label = Label(clock_font)
-clock_group.append(clock_label)
-
-def update_time(*, hours=None, minutes=None, show_colon=False):
-    now = time.localtime()
-    if hours is None:
-        hours = now[3]
-    if hours >= 18 or hours < 6:
-        clock_label.color = clock_palette[1]
-    else:
-        clock_label.color = clock_palette[3]
-    if hours > 12:
-        hours -= 12
-    elif not hours:
-        hours = 12
-    if minutes is None:
-        minutes = now[4]
-    colon = ":" if show_colon or now[5] % 2 else " "
-    clock_label.text = f"{hours}{colon}{minutes:02d}"
-    bbx, bby, bbwidth, bbh = clock_label.bounding_box
-    clock_label.x = round(display.width / 2 - bbwidth / 2)
-    clock_label.y = display.height // 2
-
-button_up = digitalio.DigitalInOut(board.BUTTON_UP)
-button_up.direction = digitalio.Direction.INPUT
-button_up.pull = digitalio.Pull.UP
-button_down = digitalio.DigitalInOut(board.BUTTON_DOWN)
-button_down.direction = digitalio.Direction.INPUT
-button_down.pull = digitalio.Pull.UP
-
-mode = 1
-last_check = None
-last_up = True
-last_down = True
-last_mode = -1
-
-while True:
-    if mode != last_mode:
-        print(f"Switching from Mode {last_mode} to Mode {mode}")
-        if last_mode == 1:
-            pass
-        elif last_mode == 2:
-            cleanup()
-            print("Cleaned up Flow Mode.")
-        elif last_mode == 3:
-            print("Valorant Mode has no dedicated cleanup function (objects are persistent).")
-        if mode == 1:
-            display.root_group = clock_group
-            print("Switched to Clock Mode")
-        elif mode == 2:
-            display.root_group = setup(display)
-            print("Switched to Flow Mode")
-        elif mode == 3:
-            display.root_group = valorant_group
-            print("Switched to Valorant Mode")
-        gc.collect()
-    if mode == 1:
-        last_check = run(update_time, network, last_check)
-        gc.collect
-    elif mode == 2:
-        loop()
-        gc.collect
-    elif mode == 3:
-        val_test.get_info(network)
-    last_mode = mode
-    current_up = button_up.value
-    current_down = button_down.value
-    if not current_up and last_up and mode < 3:
-        mode +=1
-        print("Up button pressed")
-    if not current_down and last_down and mode > 0:
-        mode -= 1
-        print("Down button pressed")
-    last_up = current_up
-    last_down = current_down
-    time.sleep(0.05)
-```
 
 # First Milestone
 
