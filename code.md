@@ -7,7 +7,9 @@ title: Code
 
 ## My code
 # Third Milestone Code
+This code used 2 devices an esp32-s3, used to collect data, and a matrix portal s3, this does most of the processing of the math and displaying on the screen.
 Main.py
+This file is used to call all the other files, perform the startup for each file, connect to the network, and implement some of the code for functions that cannot be placed in another file.
 ```python 
 import board
 import digitalio
@@ -172,6 +174,7 @@ while True:
 
 ```
 clock_sync.py
+This Python file simply checks the time, as this was my first module. Therefore, many of the functions in this mode are implemented in the code.py file.
 ```python 
 import time
 
@@ -189,6 +192,7 @@ def run(update_time, network, last_check, allow_network=True):
     time.sleep(1)
     return last_check
 ```
+This was my second mode, so most of the functions, like displaying and doing all the brain power, are created in this file. The file does a lot of math to create this effect that is then displayed on the screen. In this function, you can change the singularities, the color of the dots on the screen, and how many dots are used as the flow front.
 Flow.py
 ```python 
 import time
@@ -375,6 +379,7 @@ def loop():
     time.sleep(DELAY)
 ```
 val_test.py
+This file calls on an API called the Hendrick API, an API that tracks player data. This allowed me to display any Valorants rank as long as you created an image of the rank in a folder called Ranks and have created an Hendrick API key.
 ```python 
 import time
 import displayio
@@ -388,7 +393,7 @@ import adafruit_imageload # Import the imageload library
 name = "Tenz"
 tag = "00005"
 region = "na"
-api_key = "HDEV-72f89bbe-b57c-4e42-a5d4-ca19607a5810"
+api_key = "APIKey"
 url = f"https://api.henrikdev.xyz/valorant/v1/mmr/{region}/{name}/{tag}"
 headers = {"Authorization": api_key}
 
@@ -676,7 +681,8 @@ def cleanup():
     gc.collect()
     print("Valorant Mode cleanup complete.")
 ```
-mqtt_display.py
+mqtt_display.py'
+This file also uses an API that requests data from an API server that gets the data from an ESP32 that sends information to the server, and this code requests the data from the APi called Thing Speaks
 ```python 
 import time
 import displayio
@@ -686,7 +692,7 @@ from adafruit_bitmap_font import bitmap_font
 # === Configuration (these can be moved to settings.toml for a real project) ===
 # For this example, we'll hardcode them based on your request.
 # In a real application, you'd load these from settings.toml using os.getenv
-API_URL = "https://api.thingspeak.com/channels/3015724/feeds.json?api_key=RX010SRJCW9PCG8V&results=2" # Replace with your actual API endpoint
+API_URL = API URl # Replace with your actual API endpoint
 
 # === Globals ===
 _display = None
