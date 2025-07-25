@@ -64,7 +64,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 | Wire Stand | Use the stand to hold the screen in place | $4.95 | <a href="https://www.adafruit.com/product/1679"> Link </a> |
 | Screwdriver | Used to put the screws into the M4 chip | $1.50 | <a href="https://www.adafruit.com/product/3284"> Link </a> |
 | Mini Speaker | Used to add sound to the screen (I have the wrong wire right now) | $1.95 | <a href="https://www.adafruit.com/product/3923"> Link </a> |
-| Precision Temp & Humidity Sensor | Used to send information to the esp32(I think its bricked) | $58.95 | <a href="https://www.adafruit.com/product/4867"> Link </a> |
+| Precision Temp & Humidity Sensor | Used to send information to the esp32(I think it's bricked) | $58.95 | <a href="https://www.adafruit.com/product/4867"> Link </a> |
 | ESP32 board with STEMMA QT / Qwiic connector | Used to send data to the MatrixPortal using the internet| $1.50 | <a href="https://www.adafruit.com/product/5405"> Link </a> |
 | Matrix portal S3 | Used replace the M4 chip to a stronger processor and more ram and data | $19.95 | <a href="https://www.adafruit.com/product/5778"> Link </a> |
 | MAX98357 I2S Class-D Mono Amp | used as a driver for the speaker(wrong wire right now)  | $4.50 | <a href="[https://www.adafruit.com/product/3284](https://www.digikey.com/en/products/detail/adafruit-industries-llc/5647/21283812?gad_source=1&gad_campaignid=20243136172&gbraid=0AAAAADrbLlh-6T16Vrium77g_FMBakpQ4&gclid=Cj0KCQjwhO3DBhDkARIsANxrhTorzYELKxenF74fJfHs2Vwa49Nm6J4P5HvHJOYHqi74qSeeiFK8sD4aAuftEALw_wcB&gclsrc=aw.ds)"> Link </a> |
