@@ -26,7 +26,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 - I've learned a lot, like how to use an API and how they can integrate into code. I also learned that sometimes when solving problems, you should take it from a different angle, and sometimes you need to switch to another thing before you realize what the problem might be. 
 -Something that I hope to learn in the future is the ability to integrate sensors and use the internet to integrate all these functions and be able to make a smart environment, so human tasks could be easier. This would allow people with disabilities to be able to access more functionality in their life. 
 # Final Milestone Code
-Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
+[Code](code.md) 
 
 
 
@@ -53,7 +53,6 @@ Here's where you'll put your code. The syntax below places it into a block of co
 - I could add Animations to the screen that would make the screen smoother and allow it to transition between screens. I also want to add more information from the internet to the screen, like the weather or the stock market. If I still have time, I would also like to add the score of my games on the screen.
 
 # First Milestone Code
-My code
 [Code](code.md)
 
 # Bill of Materials
