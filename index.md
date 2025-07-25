@@ -48,9 +48,7 @@ For your second milestone, explain what you've worked on since your previous mil
 - I need to make a network that would allow me to communicate between the screen and other devices, so I can get readings from another microcontroller and be able to display them on my screen.
   
 # Second Milestone Code
-[Code](code.md/# Second Milestone Code) 
-
-
+[Code](code.md) 
 
 
 # First Milestone
