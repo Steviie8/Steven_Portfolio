@@ -7,8 +7,9 @@ title: Code
 
 ## My code
 # Third Milestone Code
-This code used 2 devices an esp32-s3, used to collect data, and a matrix portal s3, this does most of the processing of the math and displaying on the screen.
-Main.py
+For the thrird milestone I used 2 devices to gater information and send information using an Api, this led to me having to code in multiple languages and using multiple diffrent type libraries
+
+Code.py
 
 This file is used to call all the other files, perform the startup for each file, connect to the network, and implement some of the code for functions that cannot be placed in another file.
 ```python 
