@@ -40,7 +40,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 - I need to make a network that would allow me to communicate between the screen and other devices, so I can get readings from another microcontroller and be able to display them on my screen.
   
 # Second Milestone Code
-[Second mileston code](code.html#second-milestone-code) 
+[Second Milestone Code](code.html#second-milestone-code) 
 
 
 # First Milestone
