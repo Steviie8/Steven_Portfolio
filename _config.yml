@@ -1,6 +1,6 @@
-theme: jekyll-theme-minimal 
+theme: jekyll-theme-minimal
 markdown: kramdown
 logo: image.jpg
-text: [Home](index.md) | [code](code.md) 
+text: [Home](index.md) | [code](code.md)
 
 
