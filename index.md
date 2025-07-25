@@ -5,11 +5,10 @@ title: Main
 
 [Home](index.md) | [Code](code.md) 
 # Matrix Portal Flow Visualizer
+My project, the Matrix Portal Flow Visualizer, was an interesting project that had many ups and downs. Though it's called the Flow Visualizer, the main project isn't the Flow Visualizer due to the code being too glitchy and buggy; I had to pivot to another main project. This led me to the idea of different modes, where in each mode, it runs a different Python file, so it can have different modes. One of the functions of a mode is that it can access a valorant api and display the data on the screen.
 
-Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails!
-
-You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions:
-```HTML 
+```HTML You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions:```
+```HTML
 <!--- This is an HTML comment in Markdown -->
 <!--- Anything between these symbols will not render on the published site -->
 ```
@@ -18,7 +17,7 @@ You should comment out all portions of your portfolio that you have not complete
 |:--:|:--:|:--:|:--:|
 | Steven X | Glenda Dawson High School | Mechanical Engineering | Incoming Junior
 
-**Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**
+```HTML **Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**```
 
 ![Headstone Image](logo.svg)
   
