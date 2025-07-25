@@ -3,7 +3,7 @@ layout: default
 title: Code
 ---
 
-[Back to Home](index.md)
+[Back to Home](index.md)| [First Milestone Code](# First Milestone Code)| [Second Milestone Code](# Second Milestone Code)|
 
 ## My code
 # Third Milestone Code
