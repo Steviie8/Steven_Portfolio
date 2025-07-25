@@ -19,9 +19,8 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 # Final Milestone
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q3VBB9vsr1M?si=LlsSSnnHHV4FcBnC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-For your final milestone, explain the outcome of your project. Key details to include are:
 - In this third milestone, I have added a connection between the Matrix Portal M4 and an ESP-32 that was supposed to display data from a sensor to the screen, but due to a broken sensor, I couldn't fully display what the sensor was reading to the screen. 
 - Some of the biggest challenges that I have faced are that much of the code took very long to debug, and some of them weren't the code's problem, like my sensor, which was faulty instead.
 - I've learned a lot, like how to use an API and how they can integrate into code. I also learned that sometimes when solving problems, you should take it from a different angle, and sometimes you need to switch to another thing before you realize what the problem might be. 
@@ -35,7 +34,6 @@ Here's where you'll put your code. The syntax below places it into a block of co
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QSbWj-pGbiI?si=XmT6LRNO0g3uPgXG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
 - For the second milestone, I have added the ability to have the screen flip through different animations like a clock, a flow simulation, and finally a screen that shows my rank and how much RR I lost. This is done by fetching data from an API that works with Valorant to check my account data.
 - Something that has been very surprising in my journey to make this code work was how many things that seem simple from the outside, like my Valorant API, take a long time to get working. Some of the other issues that seem surprising to me were how many difficult challenges I tried to overcome that required only 1 or 2 steps to fully fix.
 - A challenge that I couldn't figure out was the ability to fetch data through an API, because CircuitPython uses a different fetch system than what normal Python works with. Though that wasn't the problem, and it was a simple, few-step fix that took me a few minutes. The problem wasn't with my code but with an outdated software that took a few clicks to fix. This has allowed to me to realize I need to think about the bigger picture on my problems, as the problem could be something that may be different then just my code.
@@ -49,7 +47,6 @@ For your second milestone, explain what you've worked on since your previous mil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6Rt9wJ12GzU?si=XAUVdCQhY9lnhJn5&amp;start=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-For your first milestone, describe what your project is and how you plan to build it. You can include:
 - There are 2 important components in my build: the Matrix Portal M4 microcontroller and the 64x32 LED board. With these components, I will  use the microcontroller to connect to the internet and check the time and time zone of where the board is, and display it on the 64x32 LED board. 
 - I've learned how to use and manipulate the software of the Matrix Portal M4 microcontroller and how to connect the board to the internet. Through my problems, I have learned how to debug the microcontroller using the serial output and other similar ways to debug the microcontroller.
 - I've faced many challenges because this wasn't my original plan with the Matrix Portal M4; the original plan was to make a flow visualizer, but due to nasty code that crashed the microcontroller, I had to change the project. Even after 6 hours of trying to debugging, the instructors and I could't figure out the problem to the issue. This led me to do the Time clock.
