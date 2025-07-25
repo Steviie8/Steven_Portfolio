@@ -26,7 +26,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 - I've learned a lot, like how to use an API and how they can integrate into code. I also learned that sometimes when solving problems, you should take it from a different angle, and sometimes you need to switch to another thing before you realize what the problem might be. 
 -Something that I hope to learn in the future is the ability to integrate sensors and use the internet to integrate all these functions and be able to make a smart environment, so human tasks could be easier. This would allow people with disabilities to be able to access more functionality in their life. 
 # Final Milestone Code
-[Code](code.md) 
+[Final Milestone Code](code.md) 
 
 
 
@@ -40,7 +40,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 - I need to make a network that would allow me to communicate between the screen and other devices, so I can get readings from another microcontroller and be able to display them on my screen.
   
 # Second Milestone Code
-[Code](code.md) 
+[Second mileston code](code.html#second-milestone-code) 
 
 
 # First Milestone
@@ -53,7 +53,7 @@ My project, the Matrix Portal Flow Visualizer, was an interesting project that h
 - I could add Animations to the screen that would make the screen smoother and allow it to transition between screens. I also want to add more information from the internet to the screen, like the weather or the stock market. If I still have time, I would also like to add the score of my games on the screen.
 
 # First Milestone Code
-[Code](code.md)
+[First Milestone Code](code.md#first-milestone-code)
 
 # Bill of Materials
 
