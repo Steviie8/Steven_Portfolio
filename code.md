@@ -9,6 +9,7 @@ title: Code
 # Third Milestone Code
 This code used 2 devices an esp32-s3, used to collect data, and a matrix portal s3, this does most of the processing of the math and displaying on the screen.
 Main.py
+
 This file is used to call all the other files, perform the startup for each file, connect to the network, and implement some of the code for functions that cannot be placed in another file.
 ```python 
 import board
@@ -174,6 +175,7 @@ while True:
 
 ```
 clock_sync.py
+
 This Python file simply checks the time, as this was my first module. Therefore, many of the functions in this mode are implemented in the code.py file.
 ```python 
 import time
@@ -192,8 +194,9 @@ def run(update_time, network, last_check, allow_network=True):
     time.sleep(1)
     return last_check
 ```
-This was my second mode, so most of the functions, like displaying and doing all the brain power, are created in this file. The file does a lot of math to create this effect that is then displayed on the screen. In this function, you can change the singularities, the color of the dots on the screen, and how many dots are used as the flow front.
 Flow.py
+
+This was my second mode, so most of the functions, like displaying and doing all the brain power, are created in this file. The file does a lot of math to create this effect that is then displayed on the screen. In this function, you can change the singularities, the color of the dots on the screen, and how many dots are used as the flow front.
 ```python 
 import time
 import math
@@ -379,6 +382,7 @@ def loop():
     time.sleep(DELAY)
 ```
 val_test.py
+
 This file calls on an API called the Hendrick API, an API that tracks player data. This allowed me to display any Valorants rank as long as you created an image of the rank in a folder called Ranks and have created an Hendrick API key.
 ```python 
 import time
@@ -681,7 +685,8 @@ def cleanup():
     gc.collect()
     print("Valorant Mode cleanup complete.")
 ```
-mqtt_display.py'
+mqtt_display.py
+
 This file also uses an API that requests data from an API server that gets the data from an ESP32 that sends information to the server, and this code requests the data from the APi called Thing Speaks
 ```python 
 import time
@@ -800,6 +805,7 @@ def cleanup():
 
 ```
 Esp32-s3 Main file
+
 This file connects to the internet using its onboard ESP32 chip, and with that it sends data to the ThingSpeak server using the API, and then the MatrixPortal S3 receives it and displays it.
 ```c++ 
 #include <WiFi.h>
